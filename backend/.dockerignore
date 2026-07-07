@@ -1,0 +1,16 @@
+# Local dev artifacts — never bake into the image
+db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+__pycache__/
+*/__pycache__/
+**/__pycache__/
+*.pyc
+.env
+.env.*
+venv/
+.venv/
+.git/
+.idea/
+.vscode/

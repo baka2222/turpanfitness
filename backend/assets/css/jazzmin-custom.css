@@ -1,0 +1,237 @@
+/* ── Login ───────────────────────────────────────────── */
+.login-logo img {
+    max-width: 160px;
+    max-height: 160px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ── Нативный <select> ───────────────────────────────── */
+select,
+.form-control[multiple] {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding: 7px 32px 7px 10px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 5px !important;
+    font-size: 14px;
+    color: #212529;
+    cursor: pointer;
+    transition: box-shadow .15s ease;
+    min-width: 200px;
+}
+
+select:focus,
+.form-control[multiple]:focus {
+    border-color: #ced4da !important;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08) !important;
+    outline: none;
+}
+
+select[multiple] {
+    background-image: none;
+    padding-right: 10px !important;
+}
+
+/* ── Select2 — контейнер ─────────────────────────────── */
+.select2-container {
+    min-width: 250px;
+    width: 100% !important;
+    max-width: 500px;
+}
+
+/* ── Select2 — одиночный выбор ───────────────────────── */
+.select2-container--default .select2-selection--single,
+.select2-container--admin-autocomplete .select2-selection--single {
+    height: 38px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 5px !important;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    transition: box-shadow .15s ease;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--admin-autocomplete.select2-container--open .select2-selection--single,
+.select2-container--admin-autocomplete.select2-container--focus .select2-selection--single {
+    border-color: #ced4da !important;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered,
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered {
+    color: #212529;
+    line-height: 36px !important;
+    padding-left: 10px !important;
+    padding-right: 30px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered:empty,
+.select2-container--default .select2-selection--single .select2-selection__rendered[title="---------"],
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered:empty,
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__rendered[title="---------"] {
+    color: #9aa3ad;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow,
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__arrow {
+    height: 36px !important;
+    right: 8px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b,
+.select2-container--admin-autocomplete .select2-selection--single .select2-selection__arrow b {
+    border-top-color: #666 !important;
+    border-width: 5px 4px 0 !important;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b,
+.select2-container--admin-autocomplete.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-bottom-color: #666 !important;
+    border-top-color: transparent !important;
+}
+
+/* ── Select2 — множественный выбор (M2M) ────────────── */
+.select2-container--default .select2-selection--multiple,
+.select2-container--admin-autocomplete .select2-selection--multiple {
+    min-height: 38px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 5px !important;
+    background-color: #fff;
+    padding: 2px 6px !important;
+    transition: box-shadow .15s ease;
+    cursor: text;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--admin-autocomplete.select2-container--focus .select2-selection--multiple {
+    border-color: #ced4da !important;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice,
+.select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__choice {
+    background-color: #212529 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-size: 13px;
+    padding: 2px 8px 2px 6px !important;
+    margin: 3px 4px 3px 0 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    line-height: 1.5;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove,
+.select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__choice__remove {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 14px;
+    font-weight: bold;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer;
+    line-height: 1;
+    order: 1;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
+.select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #fff !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display,
+.select2-container--admin-autocomplete .select2-selection--multiple .select2-selection__choice__display {
+    order: 2;
+}
+
+.select2-container--default .select2-selection--multiple .select2-search--inline .select2-search__field,
+.select2-container--admin-autocomplete .select2-selection--multiple .select2-search--inline .select2-search__field {
+    margin-top: 4px;
+    color: #212529;
+    font-size: 14px;
+}
+
+/* ── Select2 — выпадающий список ─────────────────────── */
+.select2-dropdown {
+    border: 1px solid #ced4da !important;
+    border-radius: 5px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: #fff;
+    overflow: hidden;
+}
+
+.select2-container--default .select2-search--dropdown,
+.select2-container--admin-autocomplete .select2-search--dropdown {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field,
+.select2-container--admin-autocomplete .select2-search--dropdown .select2-search__field {
+    border: 1px solid #ced4da !important;
+    border-radius: 4px !important;
+    padding: 6px 10px !important;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color .15s ease;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field:focus,
+.select2-container--admin-autocomplete .select2-search--dropdown .select2-search__field:focus {
+    border-color: #adb5bd !important;
+    box-shadow: none;
+}
+
+.select2-results__options {
+    max-height: 240px;
+    overflow-y: auto;
+    padding: 4px 0;
+}
+
+.select2-results__option {
+    padding: 8px 12px !important;
+    font-size: 14px;
+    color: #212529;
+    cursor: pointer;
+    transition: background .1s ease;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
+.select2-container--admin-autocomplete .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #E30613 !important;
+    color: #fff !important;
+}
+
+.select2-container--default .select2-results__option--selected,
+.select2-container--admin-autocomplete .select2-results__option--selected {
+    background-color: #f0f0f0 !important;
+    color: #555 !important;
+}
+
+.select2-container--default .select2-results__option--selected.select2-results__option--highlighted.select2-results__option--selectable,
+.select2-container--admin-autocomplete .select2-results__option--selected.select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #c0040f !important;
+    color: #fff !important;
+}
+
+.select2-results__option--disabled {
+    color: #aaa !important;
+}
+
+/* ── Скроллбар ───────────────────────────────────────── */
+.select2-results__options::-webkit-scrollbar { width: 5px; }
+.select2-results__options::-webkit-scrollbar-track { background: #f5f5f5; }
+.select2-results__options::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+.select2-results__options::-webkit-scrollbar-thumb:hover { background: #E30613; }

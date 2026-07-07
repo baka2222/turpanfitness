@@ -1,0 +1,107 @@
+from config import DEFAULT_LANGUAGE
+
+languages = {
+    'ru': {
+        'welcome': 'Добро пожаловать',
+        'friend': 'друг',
+        'menu': 'Меню',
+        'menu_tip': '📌 Нажмите кнопку «Меню», чтобы вернуться сюда в любой момент.',
+        'menu_activate': 'Рады видеть вас в боте <b>Turpan Fitness</b>!\n\nВыберите нужный раздел ниже:',
+        'menu_title': '🏠 <b>Главное меню</b>\n\nВыберите действие:',
+        'faq': 'Частые вопросы',
+        'leave_review': 'Оставить отзыв',
+        'language_change': 'Сменить язык',
+        'choose_language': '🌍 Пожалуйста, выберите язык',
+        'language_set': '✅ Язык успешно изменён!',
+        'lang_ru': '🇷🇺 Русский',
+        'lang_en': '🇬🇧 English',
+        'lang_kg': '🇰🇬 Кыргызча',
+        'faq_choose_category': '📂 Выберите категорию вопроса',
+        'faq_choose_question': '❓ Выберите интересующий вас вопрос',
+        'faq_no_categories': 'Пока нет доступных категорий вопросов.',
+        'faq_no_questions': 'В этой категории пока нет вопросов.',
+        'faq_back_categories': '↩️ К категориям',
+        'faq_answer_prefix': '💬',
+        'review_choose_rating': '⭐ Оцените нас от 1 до 5',
+        'review_enter_text': '✍️ Напишите ваш отзыв одним сообщением.',
+        'review_thanks': '🙏 Спасибо за ваш отзыв! Он будет опубликован после проверки модератором.',
+        'review_cancel': '✖️ Отмена',
+        'review_cancelled': 'Отзыв отменён.',
+        'back_to_menu': '🏠 В меню',
+        'user_not_found': 'Вы не авторизованы. Отправьте /start, чтобы начать.',
+        'error': 'Произошла ошибка. Попробуйте ещё раз.',
+    },
+    'en': {
+        'welcome': 'Welcome',
+        'friend': 'friend',
+        'menu': 'Menu',
+        'menu_tip': '📌 Tap the “Menu” button anytime to return here.',
+        'menu_activate': 'Glad to see you in the <b>Turpan Fitness</b> bot!\n\nChoose a section below:',
+        'menu_title': '🏠 <b>Main menu</b>\n\nChoose an action:',
+        'faq': 'FAQ',
+        'leave_review': 'Leave a review',
+        'language_change': 'Change language',
+        'choose_language': '🌍 Please select a language',
+        'language_set': '✅ Language successfully changed!',
+        'lang_ru': '🇷🇺 Русский',
+        'lang_en': '🇬🇧 English',
+        'lang_kg': '🇰🇬 Кыргызча',
+        'faq_choose_category': '📂 Choose a question category',
+        'faq_choose_question': '❓ Choose the question you are interested in',
+        'faq_no_categories': 'No question categories available yet.',
+        'faq_no_questions': 'There are no questions in this category yet.',
+        'faq_back_categories': '↩️ To categories',
+        'faq_answer_prefix': '💬',
+        'review_choose_rating': '⭐ Rate us from 1 to 5',
+        'review_enter_text': '✍️ Write your review in a single message.',
+        'review_thanks': '🙏 Thank you for your review! It will be published after moderation.',
+        'review_cancel': '✖️ Cancel',
+        'review_cancelled': 'Review cancelled.',
+        'back_to_menu': '🏠 To menu',
+        'user_not_found': 'You are not authorized. Send /start to begin.',
+        'error': 'An error occurred. Please try again.',
+    },
+    'kg': {
+        'welcome': 'Кош келиңиз',
+        'friend': 'дос',
+        'menu': 'Меню',
+        'menu_tip': '📌 Каалаган убакта бул жерге кайтуу үчүн «Меню» баскычын басыңыз.',
+        'menu_activate': '<b>Turpan Fitness</b> ботуна кош келиңиз!\n\nТөмөндөн керектүү бөлүмдү тандаңыз:',
+        'menu_title': '🏠 <b>Башкы меню</b>\n\nАракетти тандаңыз:',
+        'faq': 'Көп берилүүчү суроолор',
+        'leave_review': 'Пикир калтыруу',
+        'language_change': 'Тилди өзгөртүү',
+        'choose_language': '🌍 Сураныч, тилди тандаңыз',
+        'language_set': '✅ Тил ийгиликтүү өзгөртүлдү!',
+        'lang_ru': '🇷🇺 Русский',
+        'lang_en': '🇬🇧 English',
+        'lang_kg': '🇰🇬 Кыргызча',
+        'faq_choose_category': '📂 Суроонун категориясын тандаңыз',
+        'faq_choose_question': '❓ Сизди кызыктырган суроону тандаңыз',
+        'faq_no_categories': 'Азырынча суроо категориялары жок.',
+        'faq_no_questions': 'Бул категорияда азырынча суроолор жок.',
+        'faq_back_categories': '↩️ Категорияларга',
+        'faq_answer_prefix': '💬',
+        'review_choose_rating': '⭐ Бизди 1ден 5ке чейин баалаңыз',
+        'review_enter_text': '✍️ Пикириңизди бир билдирүү менен жазыңыз.',
+        'review_thanks': '🙏 Пикириңиз үчүн рахмат! Ал модерациядан кийин жарыяланат.',
+        'review_cancel': '✖️ Жокко чыгаруу',
+        'review_cancelled': 'Пикир жокко чыгарылды.',
+        'back_to_menu': '🏠 Менюга',
+        'user_not_found': 'Сиз катталган эмессиз. Баштоо үчүн /start жөнөтүңүз.',
+        'error': 'Ката кетти. Кайра аракет кылыңыз.',
+    },
+}
+
+MENU_LABELS = {data['menu'] for data in languages.values()}
+
+
+def t(lang: str, key: str) -> str:
+    return languages.get(lang, languages[DEFAULT_LANGUAGE]).get(key, key)
+
+
+def loc(obj, field: str, lang: str) -> str:
+    value = getattr(obj, f'{field}_{lang}', '') or ''
+    if not value:
+        value = getattr(obj, f'{field}_{DEFAULT_LANGUAGE}', '') or ''
+    return value

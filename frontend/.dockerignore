@@ -1,0 +1,11 @@
+node_modules
+.next
+# Do NOT bake local env into the build — NEXT_PUBLIC_* would get inlined,
+# pinning the client to a hard-coded backend host instead of same-origin.
+.env
+.env.*
+npm-debug.log*
+.git
+.idea
+.vscode
+tsconfig.tsbuildinfo

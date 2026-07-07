@@ -1,0 +1,132 @@
+# Turpan Fitness — full stack in containers.
+#
+#   nginx ──┬─▶ frontend (Next.js)        :3000
+#           ├─▶ backend  (FastAPI API)    :8000   ┐
+#           └─▶ admin    (Django/Jazzmin) :8000   │ all share one PostgreSQL
+#               bot      (aiogram)                ┘ (Django owns the schema)
+#
+# Only nginx is published to the host (:80). Point Cloudflare at it.
+
+x-django-env: &django-env
+  DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+  DJANGO_DEBUG: ${DJANGO_DEBUG}
+  DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+  DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS}
+  POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRES_HOST: db
+  POSTGRES_PORT: 5432
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # Uncomment to inspect the DB from the host:
+    # ports:
+    #   - "5432:5432"
+
+  # One-shot: create/upgrade the schema, collect admin static, ensure superuser.
+  # Everything that reads the DB waits for this to finish successfully.
+  migrate:
+    build: ./backend
+    restart: "no"
+    environment:
+      <<: *django-env
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+    command:
+      - sh
+      - -c
+      - >
+        python manage.py migrate --noinput &&
+        python manage.py collectstatic --noinput &&
+        (python manage.py createsuperuser --noinput || true)
+    volumes:
+      - ./backend/media:/app/media
+      - static_data:/app/staticfiles
+    depends_on:
+      db:
+        condition: service_healthy
+
+  admin:
+    build: ./backend
+    restart: unless-stopped
+    environment: *django-env
+    volumes:
+      - ./backend/media:/app/media          # CKEditor uploads land here
+      - static_data:/app/staticfiles
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  backend:
+    build: ./website_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      MEDIA_ROOT: /media
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_ADMIN_CHAT_ID: ${TELEGRAM_ADMIN_CHAT_ID}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+    volumes:
+      - ./backend/media:/media:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+  bot:
+    build: ./bot
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    environment:
+      # Server-side (SSR) reaches the API over the internal network.
+      API_URL: http://backend:8000
+      INTERNAL_API_URL: http://backend:8000
+      # NEXT_PUBLIC_API_URL is deliberately unset → the browser uses same-origin.
+    depends_on:
+      backend:
+        condition: service_started
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./backend/media:/var/www/media:ro
+      - static_data:/var/www/static:ro
+    depends_on:
+      - frontend
+      - backend
+      - admin
+
+volumes:
+  pgdata:
+  static_data:

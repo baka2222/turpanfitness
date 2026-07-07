@@ -1,0 +1,7 @@
+Django==6.0.6
+django-jazzmin
+django-ckeditor-5
+Pillow
+django-cors-headers
+psycopg[binary]>=3.1
+gunicorn>=21.2
